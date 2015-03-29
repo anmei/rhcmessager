@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="rhcmessager"
+  id="myeclipse.1427608116457"
+  context-root="/rhcmessager"
+  j2ee-spec="6.0"
+  archive="rhcmessager.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+
