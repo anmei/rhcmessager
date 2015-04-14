@@ -9,11 +9,18 @@
 	http://www.springframework.org/schema/context 
 	http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 	
+	<!-- 原始的基于配置的页面控制器，若不配置也会有默认的配置 -->
 	<!-- HandlerMapping -->  
-	<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>  
-	   
+	<!-- <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/> -->  
+	<!-- bean -->
+	<!-- <bean name="/user" class="org.rhc.test.controller.UserController"/> -->   
+	 
 	<!-- HandlerAdapter -->  
-	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>  
+	<!-- <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/> -->  
+	<!-- / -->
+	
+	<!-- 基于注解的页面控制器 -->
+	
 	
 	<!-- ViewResolver -->  
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
