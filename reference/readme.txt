@@ -24,6 +24,7 @@ jdk7开始“去持久代”，方法区常连池不再保存String的缓存常�
 
 ------other-------------
 do you love me?
+i love you
 
 
 
