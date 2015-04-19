@@ -23,9 +23,7 @@ jdk7开始“去持久代”，方法区常连池不再保存String的缓存常�
 
 
 ------other-------------
-do you love me?
-i love you
-haha
+
 
 
 
@@ -100,11 +98,62 @@ CPU中：waiting状态(挂起、阻塞、等待等)、ready状态(在队列中�
 sleep\wait
 1、这两个方法来自不同的类分别是Thread和Object
 2、最主要是sleep方法没有释放锁，等待一定的时间之后，自动醒来进入到可运行状态，不会马上进入运行状态，因为线程调度机制恢复线程的运行也需要时间；而 wait 方法释放了锁，使得其他线程可以使用同步控制块或者方法。
-中断：打断(打断当前状态，状态可以是运行、等待等)
+中断：打断(打断当前状态，状态可以是运行、等待等),如抛出InterruptedException
 
+----
+容易引起线程安全性(存在共享变量且具有竞态条件)的情况：CAS(check and set);读——修改——写
+内置锁(方法调用所在的对象)：大部分情况同步代码块使用的都是内置锁，如HashTable使用的就是内置锁,如：
+public synchronized void setValue(){}
+可重入锁：同一个锁可以被同一个线程在不同的方法中获取
+volatile变量：具有可见性但不能确保原子性
+线程封闭：栈封闭(方法局部变量)、使用ThreadLocal变量(类似于全局变量，)
+final：能确保初始化过程的安全性
 
+每当需要对一组相关数据以原子方式操作时，就可以考虑创建一个不可变的类来包含这些数据
 
+----
+安全地构造对象
+不要在构造过程中使this引用逸出
+通过实例封闭设计线程安全类，类似于SynchronizedMap的方法，将非线程安全封装成线程安全；或者委托给现有的线程安全类
+使用私有的锁对象而不是对象的内置锁(或者其他可通过公有方式访问的锁)，可以有许多优点，如：避免活跃性问题
 
+安全地发布对象(对象的引用与对象的状态必须同时对其它线程可见)
+在静态初始化块中初始化一个对象的引用
+将对象的引用保存在volatile、AtomicReference、final类型域、由锁保护的域中
+(不可变对象可以通过任意形式发布；可变对象必须安全发布)
+
+安全地使用对象
+确保方法的线程安全性
+
+----
+同步容器——vector、HashTable、Collections.synchronizedXxx等创建的
+并发容器——LinkedBlockingQueue等队列(生产者消费者模式)、双端队列(工作密取)
+
+同步工具类：阻塞队列、信号量、栅栏、闭锁等
+闭锁：CountDownLatch(可以同步多个线程)、FutureTask(可以取消执行、获取执行结果，若没有完成则停在get状态直到执行完返回结果)
+信号量：Semaphore
+栅栏：CyclicBarrier(与闭锁不同的是闭锁是一次性的，一旦终止就不能重置)、Exchanger(类似于SynchronousQueue 的双向形式)
+
+----
+任务执行框架Executor
+java中任务执行的抽象不是Thread而是Executor,Executor将任务的提交与执行策略解耦开来
+Executor生命周期：创建、提交、开始、完成
+Future.get()方法的异常处理可能有两种可能：任务遇到一个Exception；任务完成前被中断(Interrupt)
+若超时未完成任务，则取消当前任务
+
+Executor\ExecutorService\CompletionService
+Executors\ThreadPoolExecutor\ExecutorCompletionService
+Runnable\Callable\FutureTask
+Future
+
+JVM只有在所有的线程(非守护线程)全部终止后才会退出
+定时调度：Timer、ScheduledThreadPoolExecutor、DelayQueue
+
+-----
+java没有提供任何机制安全地终止线程(stop、suspend存在严重缺陷)，但提供了中断，这是一种协作机制，一个线程终止另一个线程
+响应中断时执行的操作：清除中断状态；抛出InterruptedException
+中断是实现取消的最合理方式
+除非你清楚中断策略，否则不要中断线程
 
 
 -------------------
