@@ -19,7 +19,11 @@
 	<!-- <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/> -->  
 	<!-- / -->
 	
+	
 	<!-- 基于注解的页面控制器 -->
+	<context:component-scan base-package="org.rhc.*" />
+	<mvc:annotation-driven />
+	
 	
 	
 	<!-- ViewResolver -->  
