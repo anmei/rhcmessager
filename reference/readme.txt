@@ -181,6 +181,14 @@ java没有提供任何机制安全地终止线程(stop、suspend存在严重缺�
 通过计数器、致命药丸等协助终止线程
 处理线程泄露
 
+线程池的配置，包括队列是否阻塞、是否有界、线程池是否有界等以避免活跃性问题
+饱和策略——当有界队列被填满后，饱和策略将发挥作用
+线程工厂
+定制线程池——ThreadPoolExecutor
+
+仅当内置锁无法满足需求时，才考虑ReentrantLock，jdk6时两种锁的性能已经差不多
+读-写锁(ReentrantReadWriteLock)：允许多个线程并发地读取共享数据，但只能有一个线程写
+
 
 -------------------
 SortedMap\NavigableMap<interface>
