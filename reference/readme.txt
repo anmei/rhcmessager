@@ -11,6 +11,8 @@ comform to
 on a best-effort basis
 vice-versa
 in preference to
+metadata\schema
+
 -----JVM--------------
 同一个类被不同的类加载器加载，也会被视为不同的类
 jdk7开始“去持久代”，方法区常连池不再保存String的缓存常量，而是只保存一个堆区的引用
@@ -68,6 +70,8 @@ Keytool将密钥（key）和证书（certificates）存在一个称为keystore�
 抽象设计
 interface：抽象；为不同的实现定制不同的方法
 
+
+>>
 
 
 
@@ -188,7 +192,8 @@ java没有提供任何机制安全地终止线程(stop、suspend存在严重缺�
 
 仅当内置锁无法满足需求时，才考虑ReentrantLock，jdk6时两种锁的性能已经差不多
 读-写锁(ReentrantReadWriteLock)：允许多个线程并发地读取共享数据，但只能有一个线程写
-
+显示Condition与内部条件队列、ReentrantLock与synchronize、条件谓词与条件队列
+互斥与同步，个人认为互斥是一种特殊的同步，互斥时条件变量为1
 
 -------------------
 SortedMap\NavigableMap<interface>
@@ -198,6 +203,9 @@ TreeMap
 
 增、删(一般会改变结构)
 改、查(迭代器、视图一般都是基于原数据)
+
+WeakHashMap
+通过WeakReference\ReferenceQueue实现，弱引用的键对应的Map条目会被回收
 
 TreeSet
 内部有TreeMap实现
@@ -213,6 +221,17 @@ LinkedBlockingQueue
 ConcurrentLinkedQueue
 双端队列数据模型为一个圈
 
+
+java.lang.ref
+
+引用——>对象
+对象的回收根据下面对应引用的回收机制(空对象大小为8字节)，同时引用对象的“引用”本身也需要回收，一般引用占用的大小为系统的位数
+
+ReferenceQueue：引用队列，被GC回收的对象引用会被放入该队列
+强引用：正常创建对象的引用，即使内存溢出也不会回收该引用对应的对象
+软引用：只有JVM快要内存溢出时才会回收该引用对应的对象，只有回收完这些引用对应的对象，如果还是内存不足才会抛出内存溢出异常，GC回收后将该引用放入引用队列
+弱引用：当GC扫描时就会回收该引用对应的对象，同时将该引用放入引用队列
+虚引用：形同虚设的引用，访问不了对象，GC回收对象后将该引用放入引用队列
 
 ------------------------
 
