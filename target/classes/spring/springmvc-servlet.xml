@@ -20,7 +20,10 @@
 	<!-- / -->
 	
 	<!-- 基于注解的页面控制器 -->
-	
+	<!-- 扫描包 -->
+	<context:component-scan base-package="org.rhc.*" />
+	<!-- 开始spring mvc的注解 -->
+	<mvc:annotation-driven />
 	
 	<!-- ViewResolver -->  
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  

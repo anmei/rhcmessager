@@ -16,5 +16,14 @@
 	 http://www.springframework.org/schema/context 
      http://www.springframework.org/schema/context/spring-context-3.2.xsd">
      
+     <!-- 缓存配置 -->
+	<aop:aspectj-autoproxy proxy-target-class="true"/>  
+	<cache:annotation-driven cache-manager="cacheManager"/>
+	<bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:ehcache.xml"></property>
+	</bean>
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<property name="cacheManager" ref="cacheManagerFactory"></property>
+	</bean>
 
 </beans>
