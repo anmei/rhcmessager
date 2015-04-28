@@ -12,7 +12,7 @@
   <!-- Spring集成Web环境的通用配置；一般用于加载除Web层的Bean（如DAO、Service等），以便于与其他任何Web框架集成，默认使用XmlWebApplicationContext  -->
   <context-param>
   	<param-name>contextConfigLocation</param-name><!-- 必须为这个名称 -->
-  	<param-value>classpath:/properties/spring-context.xml</param-value>
+  	<param-value>classpath:/configure/spring-context.xml</param-value>
   </context-param>
   <listener>
   	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -24,7 +24,7 @@
   	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
   	<init-param>
   		<param-name>contextConfigLocation</param-name><!-- 必须为这个名称 -->
-  		<param-value>classpath:/properties/springmvc-servlet.xml</param-value>
+  		<param-value>classpath:/configure/springmvc-servlet.xml</param-value>
   	</init-param>
   	<load-on-startup>1</load-on-startup>
   </servlet>
